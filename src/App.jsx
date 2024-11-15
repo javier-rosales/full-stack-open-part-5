@@ -1,34 +1,60 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from 'react'
+import Blogs from './components/Blogs'
+import LoginForm from './components/LoginForm'
+import Notification from './components/Notification'
+import blogService from './services/blogs'
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [blogs, setBlogs] = useState([])
+  const [user, setUser] = useState(null)
+  const [notificationType, setNotificationType] = useState('')
+  const [notificationMessage, setNotificationMessage] = useState(null)
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      const blogs = await blogService.getAll()
+      setBlogs(blogs)
+    }
+
+    fetchBlogs()
+  }, [])
+
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedUser')
+
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+      blogService.setToken(user.token)
+    }
+  }, [])
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+      <h2>Blogs</h2>
+      <Notification
+        type={notificationType}
+        message={notificationMessage}
+      />
+      {
+        user ? (
+          <Blogs
+            blogs={blogs}
+            user={user}
+            updateUser={setUser}
+            updateBlogs={setBlogs}
+            updateNotificationType={setNotificationType}
+            updateNotificationMessage={setNotificationMessage}
+          />
+        ) : (
+          <LoginForm
+            updateUser={setUser}
+            updateNotificationType={setNotificationType}
+            updateNotificationMessage={setNotificationMessage}
+          />
+        )
+      }
+    </div>
   )
 }
 
