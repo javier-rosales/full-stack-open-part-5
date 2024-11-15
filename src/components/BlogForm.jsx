@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { useState } from 'react'
 import blogService from '../services/blogs'
 
@@ -90,6 +91,13 @@ const BlogForm = ({
       </div>
     </div>
   )
+}
+
+BlogForm.propTypes = {
+  blogs: PropTypes.array.isRequired,
+  updateBlogs: PropTypes.func.isRequired,
+  updateNotificationType: PropTypes.func.isRequired,
+  updateNotificationMessage: PropTypes.func.isRequired
 }
 
 export default BlogForm

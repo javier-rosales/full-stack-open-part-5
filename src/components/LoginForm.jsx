@@ -1,8 +1,13 @@
+import PropTypes from 'prop-types'
 import { useState } from 'react'
 import loginService from '../services/login'
 import blogService from '../services/blogs'
 
-const LoginForm = ({ updateUser, updateNotificationType, updateNotificationMessage }) => {
+const LoginForm = ({
+  updateUser,
+  updateNotificationType,
+  updateNotificationMessage
+}) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -25,7 +30,7 @@ const LoginForm = ({ updateUser, updateNotificationType, updateNotificationMessa
 
     setUsername('')
     setPassword('')
-  } catch(exception) {
+  } catch {
     updateNotificationType('error')
     updateNotificationMessage('Wrong username or password')
     
@@ -62,6 +67,12 @@ const LoginForm = ({ updateUser, updateNotificationType, updateNotificationMessa
       </form>
     </div>
   )
+}
+
+LoginForm.propTypes = {
+  updateUser: PropTypes.func.isRequired,
+  updateNotificationType: PropTypes.func.isRequired,
+  updateNotificationMessage: PropTypes.func.isRequired
 }
 
 export default LoginForm

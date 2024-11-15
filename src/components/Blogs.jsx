@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import Blog from './Blog'
 import BlogForm from './BlogForm'
 
@@ -9,7 +10,7 @@ const Blogs = ({
   updateNotificationType,
   updateNotificationMessage
 }) => {
-  const handleLogout = event => {
+  const handleLogout = () => {
     window.localStorage.removeItem('loggedUser')
     updateUser(null)
   }
@@ -44,6 +45,15 @@ const Blogs = ({
       </div>
     </div>
   )
+}
+
+Blogs.propTypes = {
+  blogs: PropTypes.array.isRequired,
+  updateBlogs: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  updateUser: PropTypes.func.isRequired,
+  updateNotificationType: PropTypes.func.isRequired,
+  updateNotificationMessage: PropTypes.func.isRequired
 }
 
 export default Blogs
