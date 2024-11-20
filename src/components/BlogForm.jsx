@@ -52,7 +52,7 @@ const BlogForm = ({
         onClick={toggleVisibility}
         style={hideWhenVisible}
       >
-        New note
+        New blog
       </button>
       <div style={showWhenVisible}>
         <h3>Create new blog</h3>
@@ -61,6 +61,7 @@ const BlogForm = ({
             Title
           </label>
           <input
+            data-testid='title'
             value={title}
             id='title'
             onChange={({ target }) => setTitle(target.value)}
@@ -69,6 +70,7 @@ const BlogForm = ({
             Author
           </label>
           <input
+            data-testid='author'
             value={author}
             id='author'
             onChange={({ target }) => setAuthor(target.value)}
@@ -77,6 +79,7 @@ const BlogForm = ({
             Url
           </label>
           <input
+            data-testid='url'
             value={url}
             id='url'
             onChange={({ target }) => setUrl(target.value)}

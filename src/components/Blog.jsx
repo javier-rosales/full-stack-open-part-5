@@ -71,12 +71,16 @@ const Blog = ({
           <br />
           {blog.url}
           <br />
-          {blog.likes}
+          <span className='likes'>
+            {blog.likes}
+          </span>
           <button onClick={handleLike}>
             Like
           </button>
           <br />
-          {blog.user.name}
+          <span className='name'>
+            {blog.user.name}
+          </span>
           <br />
           <button onClick={toggleDetails}>
             Hide

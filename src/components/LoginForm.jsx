@@ -43,11 +43,12 @@ const LoginForm = ({
   return (
     <div>
       <h2>Log in to application</h2>
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleLogin} className='login-form'>
         <label htmlFor='username'>
           Username
         </label>
         <input
+          data-testid='username'
           value={username}
           id='username'
           onChange={({ target }) => setUsername(target.value)}
@@ -56,13 +57,14 @@ const LoginForm = ({
           Password
         </label>
         <input
+          data-testid='password'
           type='password'
           value={password}
           id='password'
           onChange={({ target }) => setPassword(target.value)}
         />
         <button>
-          Login
+          Log in
         </button>
       </form>
     </div>
